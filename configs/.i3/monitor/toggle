@@ -1,0 +1,22 @@
+#!/bin/bash
+
+internal='eDP1'
+external='HDMI1'
+
+connected="$(xrandr --query | sed 1d | grep ' connected ' | awk '{print $1}')"
+active="$(xrandr --listactivemonitors | sed 1d | awk '{print $4}')"
+
+# If no external display...
+if [[ "${connected}" =~ ^${internal}$ ]]; then
+  xrandr --output "${internal}" --auto --output "${external}" --off
+  exit
+fi
+
+# Toogle
+if [[ "${active}" =~ ^eDP1$ ]]; then
+  xrandr --output "${external}" --auto --output "${internal}" --off
+elif [[ "${active}" =~ ^HDMI1$ ]]; then
+  xrandr --output "${external}" --auto --output "${internal}" --auto --right-of "${external}"
+else
+  xrandr --output "${internal}" --auto --output "${external}" --off 
+fi

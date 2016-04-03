@@ -1,0 +1,10 @@
+[push]
+	default = matching
+[core]
+	editor = vim
+[diff]
+	submodule = log
+[status]
+	submodulesummary = 1
+[alias]
+	glog = log --graph --abbrev-commit --pretty=oneline
