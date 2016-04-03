@@ -138,13 +138,9 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  # status_command i3status
   status_command i3cat
   # font pango:monospace 12
 }
-
-# My custom stuff starts here.
-
 
 # Screen brightness
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
@@ -158,15 +154,11 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 7%-
 # Screen lock
 bindsym $mod+Ctrl+l exec i3lock -d --color 000000
 
-bindsym XF86TouchpadToggle exec /usr/local/bin/touchpad-toggle
-# bindsym XF86Sleep exec systemctl suspend
+bindsym $mod+p exec ~/.i3/monitor/toggle
+bindsym XF86Sleep exec systemctl suspend
 
 # Start NetworkManager applet on system-tray
 exec --no-startup-id nm-applet
 
-exec --no-startup-id "setxkbmap -layout us,hu -option grp:alt_shift_toggle"
-
-bindsym $mod+p exec ~/.i3/monitor/toggle
-
+# Keyboard
 exec --no-startup-id xmodmap ~/.Xmodmap
-
