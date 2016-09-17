@@ -1,0 +1,18 @@
+---
+
+- name: pacman.conf - Add ArchlinuxFR SigLevel
+  ini_file: dest=/etc/pacman.conf
+            section=archlinuxfr
+            option=SigLevel
+            value=Never
+
+- name: pacman.conf - Add ArchlinuxFR Server URL
+  ini_file: dest=/etc/pacman.conf
+            section=archlinuxfr
+            option=Server
+            value=http://repo.archlinux.fr/$arch
+
+- name: Install Yaourt package manager for AUR packages
+  pacman: name=yaourt
+          state=present
+          update_cache=yes
