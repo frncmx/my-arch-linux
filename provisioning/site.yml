@@ -3,5 +3,8 @@
 - hosts: all
   become: yes
 
+  vars:
+  - target_user: vagrant
+
   roles:
-  - base
+  - desktop-i3

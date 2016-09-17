@@ -18,10 +18,12 @@ Vagrant.configure("2") do |config|
   # Note: I could you ansible provisioner with Vagrant, but later
   # I want to run Ansible natively on my machine.
   config.vm.provision "shell", inline: <<-SHELL
-    cd /vagrant/
     # sudo pacman -Syu --noconfirm
     sudo pacman -Sy --noconfirm ansible
-    ansible-playbook provisioning/site.yml
+
+    # Add the following line to vagrant user's hitory... I usally
+    # forget how to run a playbook.
+    echo "ansible-playbook provisioning/site.yml" > ~vagrant/.bash_history
   SHELL
 
 end

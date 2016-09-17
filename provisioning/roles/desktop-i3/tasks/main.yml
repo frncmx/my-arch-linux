@@ -1,0 +1,21 @@
+---
+
+- name: Install Display Server
+  pacman: name={{ item }} state=present update_cache=yes
+  with_items:
+  - xorg
+  - xorg-xinit
+
+- name: Install i3 group
+  pacman: name={{ item }} state=present update_cache=yes
+  with_items:
+  - i3-wm
+  - i3lock
+  - i3status
+
+- name: Put .xinitrc in place
+  copy: src=xinitrc
+        dest=~{{ target_user }}/.xinitrc
+        owner={{ target_user }}
+        group={{ target_user }}
+        mode=0644
