@@ -2,6 +2,7 @@
 #
 # Please see http://i3wm.org/docs/userguide.html for a complete reference!
 
+# Use Windows button as modifier.
 set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
@@ -143,7 +144,7 @@ bar {
 }
 
 # Screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 
+bindsym XF86MonBrightnessUp exec xbacklight -inc 10
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10
 
 # Volume control
@@ -154,11 +155,5 @@ bindsym XF86AudioLowerVolume exec amixer -q set Master 7%-
 # Screen lock
 bindsym $mod+Ctrl+l exec i3lock -d --color 000000
 
-bindsym $mod+p exec ~/.i3/monitor/toggle
+#bindsym $mod+p exec ~/.i3/monitor/toggle
 bindsym XF86Sleep exec systemctl suspend
-
-# Start NetworkManager applet on system-tray
-exec --no-startup-id nm-applet
-
-# Keyboard
-exec --no-startup-id xmodmap ~/.Xmodmap
