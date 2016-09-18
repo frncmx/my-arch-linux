@@ -1,13 +1,12 @@
 ---
 
 - name: Create {{ target_user }} user
-  user: name={{ target_user }}
+  user: >
+    name={{ target_user }}
 
-  # Note: The {{':'}} magic thing at the end will only produce a colon.
-  # Otherwise, it's unpossible to avoid parser error.
-  # TODO: Remove magic, use 'lineinfile: >' instead => #stylechange-everywhere
 - name: Allow passwordless sudo for {{ target_user }} user
-  lineinfile: dest=/etc/sudoers
-              state=present
-              line="{{ target_user }} ALL=(ALL) NOPASSWD{{':'}} ALL"
-              insertafter="root ALL=(ALL) ALL"
+  lineinfile: >
+    dest=/etc/sudoers
+    state=present
+    line="{{ target_user }} ALL=(ALL) NOPASSWD: ALL"
+    insertafter="root ALL=(ALL) ALL"

@@ -1,13 +1,19 @@
 ---
 
-- name: Install Display Server
-  pacman: name={{ item }} state=present update_cache=yes
+- name: Install the X Display Server
+  pacman: >
+    name={{ item }}
+    state=present
+    update_cache=yes
   with_items:
   - xorg
   - xorg-xinit
 
 - name: Install i3 group
-  pacman: name={{ item }} state=present update_cache=yes
+  pacman: >
+    name={{ item }}
+    state=present
+    update_cache=yes
   with_items:
   - i3-wm
   - i3lock
@@ -28,18 +34,20 @@
   become_user: "{{ target_user }}"
 
 - name: Create i3 config directory for '{{ target_user }}' user
-  file: path=~{{target_user}}/.i3
-        state=directory
-        owner={{ target_user }}
-        group={{ target_user }}
-        mode=0755
+  file: >
+    path=~{{target_user}}/.i3
+    state=directory
+    owner={{ target_user }}
+    group={{ target_user }}
+    mode=0755
 
 - name: Configure i3 for '{{ target_user }}' user
-  copy: src={{ item.name }}
-        dest=~{{ target_user }}/.i3/{{ item.name }}
-        owner={{ target_user }}
-        group={{ target_user }}
-        mode={{ item.mode }}
+  copy: >
+    src={{ item.name }}
+    dest=~{{ target_user }}/.i3/{{ item.name }}
+    owner={{ target_user }}
+    group={{ target_user }}
+    mode={{ item.mode }}
   with_items:
   - { name: 'config', mode: '0644' }
   - { name: 'i3cat.conf', mode: '0644' }
@@ -48,8 +56,9 @@
   - { name: 'status-current-layout', mode: '0744' }
 
 - name: Put .xinitrc into ~/{{ target_user }}
-  copy: src=xinitrc
-        dest=~{{ target_user }}/.xinitrc
-        owner={{ target_user }}
-        group={{ target_user }}
-        mode=0644
+  copy: >
+    src=xinitrc
+    dest=~{{ target_user }}/.xinitrc
+    owner={{ target_user }}
+    group={{ target_user }}
+    mode=0644
