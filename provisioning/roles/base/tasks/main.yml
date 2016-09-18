@@ -20,6 +20,8 @@
   - axel
   - gvim
   - htop
+  - jdk7-openjdk
+  - jdk8-openjdk
   - mc
   - rsync
   - smplayer
