@@ -19,6 +19,16 @@
   - i3lock
   - i3status
 
+- name: Install basic utils for Desktop
+  pacman: >
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_items:
+  - dmenu       # Mod + d => slect app to lunch
+  - xclip       # A working clipboard for X
+  - alsa-utils  # Contains amixer for sound shortcuts (.i3/config)
+
   # Note: taget_user needs password-less sudo permissions
 - name: Install i3cat for custom status items on status bar
   command: yaourt -Sy --noconfirm i3cat-git
