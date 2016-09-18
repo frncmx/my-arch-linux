@@ -10,3 +10,19 @@
     state=present
     line="{{ target_user }} ALL=(ALL) NOPASSWD: ALL"
     insertafter="root ALL=(ALL) ALL"
+
+- name: Insall my usual packages
+  pacman: >
+    name={{ item }}
+    state=present
+    update_cache=yes
+  with_items:
+  - axel
+  - gvim
+  - htop
+  - mc
+  - rsync
+  - smplayer
+  - terminator
+  - thunar
+  - wget
