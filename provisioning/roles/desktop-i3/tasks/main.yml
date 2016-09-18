@@ -47,7 +47,7 @@
   - { name: 'status-caps-is-on', mode: '0744' }
   - { name: 'status-current-layout', mode: '0744' }
 
-- name: Put .xinitrc in place
+- name: Put .xinitrc into ~/{{ target_user }}
   copy: src=xinitrc
         dest=~{{ target_user }}/.xinitrc
         owner={{ target_user }}
