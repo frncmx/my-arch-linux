@@ -7,11 +7,13 @@
     update_cache=yes
   with_items:
   - axel
+  - bash-completion
   - gvim
   - htop
   - jdk7-openjdk
   - jdk8-openjdk
   - mc
+  - mlocate
   - rsync
   - smplayer
   - terminator
