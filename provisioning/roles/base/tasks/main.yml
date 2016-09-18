@@ -16,6 +16,7 @@
     mode=0644
   with_items:
   - bashrc
+  - bash_aliases
   - bash_login
   - bash_logout
 
