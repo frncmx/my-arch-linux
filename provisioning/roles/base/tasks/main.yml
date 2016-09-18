@@ -19,6 +19,16 @@
   - bash_login
   - bash_logout
 
+- name: Seed /etc/profile.d
+  copy: >
+    src={{ item }}
+    dest=/etc/profile.d/{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+  - bash_history.sh
+
 - name: Create {{ target_user }} user
   user: >
     name={{ target_user }}
