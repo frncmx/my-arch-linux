@@ -1,0 +1,82 @@
+#!/usr/bin/env bash
+
+set -x
+set -euo pipefail
+
+# TODO: Ask if you really want to run this script
+# which will destroy every data on /dev/sda
+
+# I know what I'm doing. I might destroy all of my data. (!)
+# Note: EXPERIMENTAL script
+: "${I_KNOW?'Do you know what you do?'}"
+
+# Sanity: Check network connection.
+ping -c3 archlinux.org
+
+timedatectl set-ntp true
+
+root_device='/dev/nvme0n1'
+# 0 - boot
+# 1 - swap
+# 2 - root
+# 3 - home
+part_ids=('p1' 'p2' 'p3' 'p4')
+
+### DANGER - data loss here ###
+# TODO: How could partitioning be more flexible?
+# - What if I would like to put this in Packer and run on a VM?
+# - Use % and max_size like in (RedHat) kickstart (?)
+
+# Toshiba SDD
+# Size 477GiB
+# Note: To see the device it needs to be set in <> mode in the BIOS. (!)
+parted "${root_device}" --script -- \
+  mklabel gpt \
+  mkpart primary fat32 1MiB 513MiB \
+  set 1 boot on \
+  name 1 boot \
+  mkpart primary 513MiB 20993MiB \
+  name 2 swap \
+  mkpart primary 20993MiB 174593MiB \
+  name 3 root  \
+  mkpart primary 174593MiB -1 \
+  name 4 home
+
+mkfs.fat ${root_device}${part_ids[0]}
+mkfs.ext4 ${root_device}${part_ids[2]}
+mkfs.ext4 ${root_device}${part_ids[3]}
+
+###
+
+mount ${root_device}${part_ids[2]} /mnt
+mkdir -p /mnt/{boot,home}
+mount ${root_device}${part_ids[0]} /mnt/boot
+mount ${root_device}${part_ids[3]} /mnt/home
+
+
+# TODO: Maybe this should be set by Ansible and I should use the default at
+# this point.
+# This mirror list will be automatically moved to the created system.
+cat > /etc/pacman.d/mirrorlist <<'EOF'
+# Generated on 2015-03-01
+
+## Score: 0.4, Denmark
+Server = http://mirror.one.com/archlinux/$repo/os/$arch
+## Score: 0.5, France
+Server = http://arch.tamcore.eu/$repo/os/$arch
+## Score: 0.5, Netherlands
+Server = http://ftp.nluug.nl/os/Linux/distr/archlinux/$repo/os/$arch
+## Score: 0.7, United States
+Server = http://mirror.us.leaseweb.net/archlinux/$repo/os/$arch
+EOF
+
+### Start installation ###
+
+pacstrap /mnt base
+genfstab -U /mnt >> /mnt/etc/fstab
+
+echo "Changing to New System's root..."
+arch-chroot /mnt
+
+# Note: After chroot the script will pause in a Bash Shell, however
+# I could run another script through the arch-chroot.

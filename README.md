@@ -6,5 +6,14 @@ specific HW. Migration should be easy.
 
 So, what is the solution? Automate and store my configurations here.
 
+##  Install Arch Linux base on HW
+
+1. Download Arch Linux .iso
+2. `dd` the ISO to a pendrive
+`sudo dd bs=4M if=archlinux-[date]-dual.iso of=/dev/sd[letter]`
+3. Boot from pendrive
+4. Use `wifi-menu` to acces your home WiFi
+5. `curl https://raw.githubusercontent.com/frncmx/my-arch-linux/master/first-boot/pre-chroot | bash -`
+
 **Important:** 1st this will be more like a collection of manual notes. But,
 hopefully, that will evolve when I have time.

@@ -19,7 +19,7 @@ Vagrant.configure("2") do |config|
   # I want to run Ansible natively on my machine.
   config.vm.provision "shell", inline: <<-SHELL
     # sudo pacman -Syu --noconfirm
-    sudo pacman -Sy --noconfirm ansible
+#    sudo pacman -Sy --noconfirm ansible
 
     # Add the following line to vagrant user's hitory... I usally
     # forget how to run a playbook.

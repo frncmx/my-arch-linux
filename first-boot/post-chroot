@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+# TODO: What should be moved to Ansible?
+# TODO: Configure UEFI + sytsemd-boot
+
+set -x
+set -euo pipefail
+
+: "${HOSTNAME?}"
+
+# Sanity: Check network connection.
+ping -c3 archlinux.org
+
+### Localization settings ###
+
+ln -s /usr/share/zoneinfo/Europe/Budapest /etc/localtime
+hwclock --systohc --utc
+
+cat > /etc/locale.gen <<EOF
+en_US.UTF-8 UTF-8
+en_US ISO-8859-1
+hu_HU.UTF-8 UTF-8
+hu_HU ISO-8859-2
+EOF
+
+cat > /etc/locale.conf <<EOF
+LANG=en_US.UTF-8
+EOF
+
+locale-gen
+
+echo "${HOSTNAME}" > /etc/hostname
+
+cat > /etc/hosts <<EOF
+#
+# /etc/hosts: static lookup table for host names
+#
+
+#<ip-address>	<hostname.domain.org>	<hostname>
+127.0.0.1	localhost.localdomain	localhost	"${HOSTNAME}"
+::1		localhost.localdomain	localhost	"${HOSTNAME}"
+
+# End of file
+EOF
+
+# https://wiki.archlinux.org/index.php/systemd-boot#Adding_boot_entries
+echo "!!!!!!!!!!!"
+echo "Bootloader installation is uncomplete!"
+echo "!!!!!!!!!!!"
+bootctl --path=/boot install
+
+pacman -Sy --noconfirm git ansible
+cd ~root
+git clone https://github.com/frncmx/my-arch-linux.git
+
+echo "Changeing root password..."
+passwd
