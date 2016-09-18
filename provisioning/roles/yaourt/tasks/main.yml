@@ -12,6 +12,10 @@
 
 - name: Install Yaourt package manager for AUR packages
   pacman: >
-    name=yaourt
+    name={{ item }}
     state=present
     update_cache=yes
+  with_items:
+  - base-devel
+  - rsync
+  - yaourt
