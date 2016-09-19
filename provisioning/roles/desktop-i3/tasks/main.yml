@@ -72,3 +72,13 @@
     owner={{ target_user }}
     group={{ target_user }}
     mode=0644
+
+- name: Start X on tty1 login for '{{ target_user }}' user
+  blockinfile:
+    dest: ~{{ target_user }}/.bash_login
+    block: |
+      if [[ "$(tty)" == '/dev/tty1' ]]; then
+        # Start i3-wm if it's not running.
+        pidof i3 &> /dev/null || startx
+      fi
+    backup: yes
