@@ -1,5 +1,6 @@
 ---
 
+  # Note: Requires target_user with paswordless sudo capability.
 - name: Install Google Chrome
   command: >
     yaourt -Sy --noconfirm google-chrome
