@@ -1,0 +1,25 @@
+# ~/.bashrc
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+# Check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# Load profiles from /etc/profile.d
+if [[ -d /etc/profile.d/ ]]; then
+  for profile in /etc/profile.d/*.sh; do
+    [[ -r "${profile}" ]] && source "${profile}"
+  done
+  unset profile
+fi
+
+# TODO: install package
+# source /usr/share/doc/pkgfile/command-not-found.bash
+
+if [[ -f ~/.bash_aliases ]]; then
+  source ~/.bash_aliases
+fi
+
+export PATH="$HOME/bin:$PATH"

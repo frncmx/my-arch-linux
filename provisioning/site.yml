@@ -4,7 +4,8 @@
   become: yes
 
   vars:
-  - target_user: vagrant
+  - target_user: frncmx
 
   roles:
+  - base
   - desktop-i3

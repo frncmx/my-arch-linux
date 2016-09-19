@@ -1,0 +1,31 @@
+---
+
+# I can never decide when this is sourced. The answer is for login shells.
+# Oh, wait... we could use .bash_login, then everything is clear.
+- name: Delete confusing .bash_profile
+  file: >
+    dest=/etc/skel/.bash_profile
+    state=absent
+
+- name: Seed /etc/skel
+  copy: >
+    src={{ item }}
+    dest=/etc/skel/.{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+  - bashrc
+  - bash_aliases
+  - bash_login
+  - bash_logout
+
+- name: Seed /etc/profile.d
+  copy: >
+    src={{ item }}
+    dest=/etc/profile.d/{{ item }}
+    owner=root
+    group=root
+    mode=0644
+  with_items:
+  - bash_history.sh

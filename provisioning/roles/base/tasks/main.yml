@@ -1,0 +1,8 @@
+---
+
+- include: packages.yml
+- include: bash.yml
+- include: user.yml
+
+  # Note: Requires target_user with paswordless sudo capability.
+- include: chrome.yml
