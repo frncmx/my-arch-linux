@@ -31,16 +31,16 @@
 
   # Note: taget_user needs password-less sudo permissions
 - name: Install i3cat for custom status items on status bar
-  command: yaourt -Sy --noconfirm i3cat-git
-  args:
-    creates: /usr/bin/i3cat
+  command: >
+    yaourt -Sy --noconfirm i3cat-git
+    creates=/usr/bin/i3cat
   become_user: "{{ target_user }}"
 
   # Note: taget_user needs password-less sudo permissions
 - name: Install small utility to read current keyboard layout
-  command: yaourt -Sy --noconfirm xkblayout-state
-  args:
-    creates: /usr/bin/xkblayout-state
+  command: >
+    yaourt -Sy --noconfirm xkblayout-state
+    creates=/usr/bin/xkblayout-state
   become_user: "{{ target_user }}"
 
 - name: Create i3 config directory for '{{ target_user }}' user
