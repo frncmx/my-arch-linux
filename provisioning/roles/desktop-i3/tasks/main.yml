@@ -29,19 +29,17 @@
   - xclip       # A working clipboard for X
   - alsa-utils  # Contains amixer for sound shortcuts (.i3/config)
 
-  # Note: taget_user needs password-less sudo permissions
 - name: Install i3cat for custom status items on status bar
   command: >
     yaourt -Sy --noconfirm i3cat-git
     creates=/usr/bin/i3cat
-  become_user: "{{ target_user }}"
+  become_user: yaourt
 
-  # Note: taget_user needs password-less sudo permissions
 - name: Install small utility to read current keyboard layout
   command: >
     yaourt -Sy --noconfirm xkblayout-state
     creates=/usr/bin/xkblayout-state
-  become_user: "{{ target_user }}"
+  become_user: yaourt
 
 - name: Create i3 config directory for '{{ target_user }}' user
   file: >
@@ -65,7 +63,7 @@
   - { name: 'status-caps-is-on', mode: '0744' }
   - { name: 'status-current-layout', mode: '0744' }
 
-- name: Put .xinitrc into ~/{{ target_user }}
+- name: Put .xinitrc into ~{{ target_user }}
   copy: >
     src=xinitrc
     dest=~{{ target_user }}/.xinitrc

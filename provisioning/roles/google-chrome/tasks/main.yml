@@ -1,8 +1,7 @@
 ---
 
-  # Note: Requires target_user with paswordless sudo capability.
 - name: Install Google Chrome
   command: >
     yaourt -Sy --noconfirm google-chrome
     creates=/usr/bin/google-chrome-stable
-  become_user: "{{ target_user }}"
+  become_user: yaourt
