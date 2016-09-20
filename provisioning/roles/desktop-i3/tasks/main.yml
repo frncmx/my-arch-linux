@@ -41,20 +41,20 @@
     creates=/usr/bin/xkblayout-state
   become_user: yaourt
 
-- name: Create i3 config directory for '{{ target_user }}' user
+- name: Create i3 config directory for '{{ desktop_user }}' user
   file: >
-    path=~{{target_user}}/.i3
+    path=~{{desktop_user}}/.i3
     state=directory
-    owner={{ target_user }}
-    group={{ target_user }}
+    owner={{ desktop_user }}
+    group={{ desktop_user }}
     mode=0755
 
-- name: Configure i3 for '{{ target_user }}' user
+- name: Configure i3 for '{{ desktop_user }}' user
   copy: >
     src={{ item.name }}
-    dest=~{{ target_user }}/.i3/{{ item.name }}
-    owner={{ target_user }}
-    group={{ target_user }}
+    dest=~{{ desktop_user }}/.i3/{{ item.name }}
+    owner={{ desktop_user }}
+    group={{ desktop_user }}
     mode={{ item.mode }}
   with_items:
   - { name: 'config', mode: '0644' }
@@ -63,17 +63,17 @@
   - { name: 'status-caps-is-on', mode: '0744' }
   - { name: 'status-current-layout', mode: '0744' }
 
-- name: Put .xinitrc into ~{{ target_user }}
+- name: Put .xinitrc into ~{{ desktop_user }}
   copy: >
     src=xinitrc
-    dest=~{{ target_user }}/.xinitrc
-    owner={{ target_user }}
-    group={{ target_user }}
+    dest=~{{ desktop_user }}/.xinitrc
+    owner={{ desktop_user }}
+    group={{ desktop_user }}
     mode=0644
 
-- name: Start X on tty1 login for '{{ target_user }}' user
+- name: Start X on tty1 login for '{{ desktop_user }}' user
   blockinfile:
-    dest: ~{{ target_user }}/.bash_login
+    dest: ~{{ desktop_user }}/.bash_login
     block: |
       if [[ "$(tty)" == '/dev/tty1' ]]; then
         # Start i3-wm if it's not running.

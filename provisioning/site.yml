@@ -9,5 +9,6 @@
   roles:
   - base
   - network-manager
+  - { role: sudo-user, new_user: "{{ target_user }}" }
+  - { role: desktop-i3, desktop_user: "{{ target_user}}" }
   - google-chrome
-# - desktop-i3 # currently depends on user creation (frncmx from base) #lame
