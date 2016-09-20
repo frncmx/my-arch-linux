@@ -8,4 +8,7 @@
 
   roles:
   - base
-  - desktop-i3
+  - network-manager
+  - { role: sudo-user, new_user: "{{ target_user }}" }
+  - { role: desktop-i3, desktop_user: "{{ target_user}}" }
+  - google-chrome

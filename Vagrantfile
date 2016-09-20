@@ -1,29 +1,31 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+$pacman_conf = <<SCRIPT
+cat >> /etc/pacman.conf <<'EOF'
+# Repo for simple yaourt install.
+[archlinuxfr]
+SigLevel = Never
+Server = http://repo.archlinux.fr/$arch
+EOF
+SCRIPT
+
 Vagrant.configure("2") do |config|
   config.vm.box = "ogarcia/archlinux-x64"
-
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
 
    config.vm.provider "virtualbox" do |vb|
      # vb.gui = true
      vb.memory = "1024"
    end
 
-  # Note: I could you ansible provisioner with Vagrant, but later
-  # I want to run Ansible natively on my machine.
-  config.vm.provision "shell", inline: <<-SHELL
-    # sudo pacman -Syu --noconfirm
-#    sudo pacman -Sy --noconfirm ansible
+  config.vm.provision "shell", inline: $pacman_conf
 
-    # Add the following line to vagrant user's hitory... I usally
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo pacman --noconfirm -Sy yaourt gvim
+         yaourt --noconfirm -Sy ansible-git
+
+    # Add the following line to vagrant user's history... I usally
     # forget how to run a playbook.
-    echo "ansible-playbook provisioning/site.yml" > ~vagrant/.bash_history
+    echo "ansible-playbook provisioning/site.yml" > ~/.bash_history
   SHELL
-
 end

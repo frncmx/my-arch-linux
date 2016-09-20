@@ -29,3 +29,9 @@
     mode=0644
   with_items:
   - bash_history.sh
+
+- name: Insall Bash completion
+  pacman: >
+    name=bash-completion
+    state=present
+    update_cache=yes

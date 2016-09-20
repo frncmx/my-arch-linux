@@ -1,8 +1,9 @@
 ---
 
 - include: packages.yml
-- include: bash.yml
-- include: user.yml
+  tags:
+    - packages
 
-  # Note: Requires target_user with paswordless sudo capability.
-- include: chrome.yml
+- include: bash.yml
+  tags:
+    - bash
