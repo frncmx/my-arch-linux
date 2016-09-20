@@ -1,4 +1,9 @@
 ---
 
 - include: packages.yml
+  tags:
+    - packages
+
 - include: bash.yml
+  tags:
+    - bash
