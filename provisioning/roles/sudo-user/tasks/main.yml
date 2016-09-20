@@ -1,0 +1,15 @@
+---
+
+- name: Create '{{ new_user }}' user
+  user: >
+    name={{ new_user }}
+    createhome={{ create_home }}
+    system={{ is_system_user }}
+    shell={{ default_shell }}
+
+- name: Allow passwordless sudo for '{{ new_user }}' user
+  lineinfile: >
+    dest=/etc/sudoers
+    state=present
+    line="{{ new_user }} ALL=(ALL) NOPASSWD: ALL"
+    insertafter="root ALL=(ALL) ALL"

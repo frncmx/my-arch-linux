@@ -2,4 +2,3 @@
 
 - include: packages.yml
 - include: bash.yml
-- include: user.yml

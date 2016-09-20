@@ -1,0 +1,5 @@
+---
+
+create_home: yes
+is_system_user: no
+default_shell: /bin/bash
