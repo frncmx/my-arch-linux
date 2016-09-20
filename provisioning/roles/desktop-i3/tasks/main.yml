@@ -80,3 +80,5 @@
         pidof i3 &> /dev/null || startx
       fi
     backup: yes
+
+- include: network-manager.yml
