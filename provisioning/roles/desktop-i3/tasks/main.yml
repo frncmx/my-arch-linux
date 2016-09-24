@@ -7,7 +7,7 @@
     update_cache=yes
   with_items:
   - xorg
-  - xorg-xinit
+  - xorg-xinit # .xinitrc, startx
 
 - name: Install i3 group
   pacman: >
@@ -41,20 +41,15 @@
     creates=/usr/bin/xkblayout-state
   become_user: yaourt
 
-- name: Create i3 config directory for '{{ desktop_user }}' user
+- name: Create i3 config directory in /etc/skel
   file: >
-    path=~{{desktop_user}}/.i3
+    path=/etc/skel/.i3
     state=directory
-    owner={{ desktop_user }}
-    group={{ desktop_user }}
-    mode=0755
 
-- name: Configure i3 for '{{ desktop_user }}' user
+- name: Add default config files to /ets/skel/.i3
   copy: >
     src={{ item.name }}
-    dest=~{{ desktop_user }}/.i3/{{ item.name }}
-    owner={{ desktop_user }}
-    group={{ desktop_user }}
+    dest=/etc/skel/.i3/{{ item.name }}
     mode={{ item.mode }}
   with_items:
   - { name: 'config', mode: '0644' }
@@ -63,17 +58,16 @@
   - { name: 'status-caps-is-on', mode: '0744' }
   - { name: 'status-current-layout', mode: '0744' }
 
-- name: Put .xinitrc into ~{{ desktop_user }}
+- name: Put .xinitrc into /etc/skel
   copy: >
     src=xinitrc
-    dest=~{{ desktop_user }}/.xinitrc
-    owner={{ desktop_user }}
-    group={{ desktop_user }}
+    dest=/etc/skel/.xinitrc
     mode=0644
 
-- name: Start X on tty1 login for '{{ desktop_user }}' user
+  # TODO: Brake dependency for base::bash::bash_login
+- name: Start X on tty1 login
   blockinfile:
-    dest: ~{{ desktop_user }}/.bash_login
+    dest: /etc/skel/.bash_login
     block: |
       if [[ "$(tty)" == '/dev/tty1' ]]; then
         # Start i3-wm if it's not running.

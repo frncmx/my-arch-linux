@@ -15,6 +15,6 @@
 
   - name: Run nm-applet with i3-wm if Network Manager manages network
     lineinfile: >
-      dest=~{{ desktop_user }}/.i3/config
+      dest=/etc/skel/.i3/config
       line="exec --no-startup-id nm-applet"
   when: check_nm_running.rc == 0

@@ -9,6 +9,6 @@
   roles:
   - base
   - network-manager
-  - { role: sudo-user, new_user: "{{ target_user }}" }
-  - { role: desktop-i3, desktop_user: "{{ target_user}}" }
+  - desktop-i3
   - google-chrome
+  - { role: sudo-user, new_user: "{{ target_user }}" }
