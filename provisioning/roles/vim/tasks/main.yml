@@ -1,0 +1,13 @@
+---
+
+  # Note: standard vim does not able to access X clipboard.
+- name: Install Graphical Vim (for X clipboard access)
+  pacman: >
+    name=gvim
+    state=present
+    update_cache=yes
+
+- name: Add .vimrc to /etc/skel
+  copy: >
+    src=vimrc
+    dest=/etc/skel/.vimrc
