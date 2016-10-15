@@ -53,23 +53,6 @@ mkdir -p /mnt/{boot,home}
 mount ${root_device}${part_ids[0]} /mnt/boot
 mount ${root_device}${part_ids[3]} /mnt/home
 
-
-# TODO: Maybe this should be set by Ansible and I should use the default at
-# this point.
-# This mirror list will be automatically moved to the created system.
-cat > /etc/pacman.d/mirrorlist <<'EOF'
-# Generated on 2015-03-01
-
-## Score: 0.4, Denmark
-Server = http://mirror.one.com/archlinux/$repo/os/$arch
-## Score: 0.5, France
-Server = http://arch.tamcore.eu/$repo/os/$arch
-## Score: 0.5, Netherlands
-Server = http://ftp.nluug.nl/os/Linux/distr/archlinux/$repo/os/$arch
-## Score: 0.7, United States
-Server = http://mirror.us.leaseweb.net/archlinux/$repo/os/$arch
-EOF
-
 ### Start installation ###
 
 pacstrap /mnt base
