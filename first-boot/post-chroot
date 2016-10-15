@@ -1,12 +1,11 @@
 #!/usr/bin/env bash
 
 # TODO: What should be moved to Ansible?
-# TODO: Configure UEFI + sytsemd-boot
 
 set -x
 set -euo pipefail
 
-: "${HOSTNAME?}"
+: "${NEW_HOSTNAME?"Please, provide your desired hostname."}"
 
 # Sanity: Check network connection.
 ping -c3 archlinux.org
@@ -16,20 +15,18 @@ ping -c3 archlinux.org
 ln -s /usr/share/zoneinfo/Europe/Budapest /etc/localtime
 hwclock --systohc --utc
 
-cat > /etc/locale.gen <<EOF
-en_US.UTF-8 UTF-8
-en_US ISO-8859-1
-hu_HU.UTF-8 UTF-8
-hu_HU ISO-8859-2
-EOF
-
-cat > /etc/locale.conf <<EOF
-LANG=en_US.UTF-8
-EOF
+eng_locale='en_US'
+sed -i "s/^#${eng_locale}/${eng_locale}/" /etc/locale.gen
+hun_locale='hu_HU'
+sed -i "s/^#${hun_locale}/${hun_locale}/" /etc/locale.gen
 
 locale-gen
 
-echo "${HOSTNAME}" > /etc/hostname
+echo "LANG=en_US.UTF-8" > /etc/locale.conf
+
+### Hostname setup ###
+
+echo "${NEW_HOSTNAME}" > /etc/hostname
 
 cat > /etc/hosts <<EOF
 #
@@ -37,21 +34,34 @@ cat > /etc/hosts <<EOF
 #
 
 #<ip-address>	<hostname.domain.org>	<hostname>
-127.0.0.1	localhost.localdomain	localhost	"${HOSTNAME}"
-::1		localhost.localdomain	localhost	"${HOSTNAME}"
+127.0.0.1	localhost.localdomain	localhost	${NEW_HOSTNAME}
+::1		localhost.localdomain	localhost	${NEW_HOSTNAME}
 
 # End of file
 EOF
 
-# https://wiki.archlinux.org/index.php/systemd-boot#Adding_boot_entries
-echo "!!!!!!!!!!!"
-echo "Bootloader installation is uncomplete!"
-echo "!!!!!!!!!!!"
+### Systemd boot
+
+mkinitcpio -p linux
+
 bootctl --path=/boot install
 
-pacman -Sy --noconfirm git ansible
-cd ~root
-git clone https://github.com/frncmx/my-arch-linux.git
+cat > /boot/loader/loader.conf <<EOF
+default  arch
+editor   0
+EOF
 
-echo "Changeing root password..."
+# Get PARTUUID for root device into env
+eval $(blkid -t PARTLABEL='root' -s PARTUUID -o export)
+
+cat > /boot/loader/entries/arch.conf <<EOF
+title Arch Linux
+linux /vmlinuz-linux
+initrd /initramfs-linux.img
+options root=PARTUUID=${PARTUUID} rw
+EOF
+
+### END ###
+
+echo "Changing root password..."
 passwd

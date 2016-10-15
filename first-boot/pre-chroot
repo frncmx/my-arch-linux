@@ -58,8 +58,3 @@ mount ${root_device}${part_ids[3]} /mnt/home
 pacstrap /mnt base
 genfstab -U /mnt >> /mnt/etc/fstab
 
-echo "Changing to New System's root..."
-arch-chroot /mnt
-
-# Note: After chroot the script will pause in a Bash Shell, however
-# I could run another script through the arch-chroot.
