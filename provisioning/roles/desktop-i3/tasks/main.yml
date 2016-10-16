@@ -26,7 +26,7 @@
     update_cache=yes
   with_items:
   - dmenu       # Mod + d => slect app to lunch
-  - xclip       # A working clipboard for X
+  - clipit       # A working clipboard for X
   - alsa-utils  # Contains amixer for sound shortcuts (.i3/config)
 
 - name: Install i3cat for custom status items on status bar
