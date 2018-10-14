@@ -12,7 +12,7 @@ ping -c3 archlinux.org
 
 ### Localization settings ###
 
-ln -s /usr/share/zoneinfo/Europe/Budapest /etc/localtime
+ln -f -s /usr/share/zoneinfo/Europe/Budapest /etc/localtime
 hwclock --systohc --utc
 
 eng_locale='en_US'
