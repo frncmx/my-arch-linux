@@ -61,4 +61,10 @@ initrd /initramfs-linux.img
 options root=PARTUUID=${PARTUUID} rw
 EOF
 
+
+# Make sure wifi-menu command can function properly after reboot, so that I can connect to WiFi easily.
+pacman -Sy \
+  dialog \
+  wpa_supplicant
+
 echo "DO NOT forget to set the root password!!!"
