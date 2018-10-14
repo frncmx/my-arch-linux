@@ -19,6 +19,7 @@
     masked: yes
   with_items:
   - systemd-rfkill.service
+  - systemd-rfkill.socket
 
 - name: Enable TLP services
   systemd:
