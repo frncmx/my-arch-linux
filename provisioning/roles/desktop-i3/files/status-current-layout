@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-while true; do
-  layout=$(xkblayout-state print "%s")
-  i3cat encode --name layout "[${layout^^}]"
-  sleep 2
-done

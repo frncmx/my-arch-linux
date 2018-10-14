@@ -1,73 +1,72 @@
 ---
 
 - name: Install the X Display Server
-  pacman: >
-    name={{ item }}
-    state=present
-    update_cache=yes
-  with_items:
-  - xorg
-  - xorg-xinit # .xinitrc, startx
+  pacman:
+    name: [
+      'xorg',
+      'xorg-xinit' # .xinitrc, startx
+    ]
+    state: present
+    update_cache: yes
 
-- name: Install i3 group
-  pacman: >
-    name={{ item }}
-    state=present
-    update_cache=yes
-  with_items:
-  - i3-wm
-  - i3lock
-  - i3status
 
 - name: Install basic utils for Desktop
-  pacman: >
-    name={{ item }}
-    state=present
-    update_cache=yes
-  with_items:
-  - dmenu       # Mod + d => slect app to lunch
-  - clipit       # A working clipboard for X
-  - alsa-utils  # Contains amixer for sound shortcuts (.i3/config)
+  pacman:
+    name: [
+      'alsa-utils',  # Contains amixer for sound shortcuts (.i3/config)
+      'dmenu',       # Mod + d => slect app to lunch
+      'gnome-screenshot',
+      'redshift',    # Adjusts color temperature for the night
+      'terminator',
+    ]
+    state: present
+    update_cache: yes
 
-- name: Install i3cat for custom status items on status bar
-  command: >
-    yaourt -Sy --noconfirm i3cat-git
-    creates=/usr/bin/i3cat
-  become_user: yaourt
 
-- name: Install small utility to read current keyboard layout
+- name: Install clipit and i3-dmenu
   command: >
-    yaourt -Sy --noconfirm xkblayout-state
-    creates=/usr/bin/xkblayout-state
-  become_user: yaourt
+    yay -Sy --noconfirm clipit i3-dmenu-desktop
+    creates=/usr/bin/clipit
+  become_user: yay
+
+
+- name: Install i3 group
+  pacman:
+    name: [
+      'i3lock',
+      'i3-wm',
+      'py3status',
+    ]
+    state: present
+    update_cache: yes
+
 
 - name: Create i3 config directory in /etc/skel
-  file: >
-    path=/etc/skel/.i3
-    state=directory
+  file:
+    path: /etc/skel/.i3
+    state: directory
+
 
 - name: Add default config files to /ets/skel/.i3
-  copy: >
-    src={{ item.name }}
-    dest=/etc/skel/.i3/{{ item.name }}
-    mode={{ item.mode }}
+  copy:
+    src: "{{ item.name }}"
+    dest: "/etc/skel/.i3/{{ item.name }}"
+    mode: "{{ item.mode }}"
   with_items:
   - { name: 'config', mode: '0644' }
-  - { name: 'i3cat.conf', mode: '0644' }
-  - { name: 'status.conf', mode: '0644' }
-  - { name: 'status-caps-is-on', mode: '0744' }
-  - { name: 'status-current-layout', mode: '0744' }
+  - { name: 'py3status.conf', mode: '0644' }
+
 
 - name: Put .xinitrc into /etc/skel
-  copy: >
-    src=xinitrc
-    dest=/etc/skel/.xinitrc
-    mode=0644
+  copy:
+    src: xinitrc
+    dest: /etc/skel/.xinitrc
+    mode: 0644
 
-  # TODO: Brake dependency for base::bash::bash_login
+
 - name: Start X on tty1 login
   blockinfile:
-    dest: /etc/skel/.bash_login
+    dest: /etc/skel/.profile
     block: |
       if [[ "$(tty)" == '/dev/tty1' ]]; then
         # Start i3-wm if it's not running.
