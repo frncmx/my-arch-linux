@@ -12,5 +12,5 @@
   - energy-saving
   - desktop-i3
   - google-chrome
-  - { role: sudo-user, new_user: "{{ target_user }}" }
   - docker
+  - { role: sudo-user, new_user: "{{ target_user }}", secondary_groups: docker }

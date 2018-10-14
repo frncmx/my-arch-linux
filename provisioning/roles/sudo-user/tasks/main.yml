@@ -6,6 +6,7 @@
     createhome={{ create_home }}
     system={{ is_system_user }}
     shell={{ default_shell }}
+    groups={{ secondary_groups }}
 
 - name: Allow passwordless sudo for '{{ new_user }}' user
   lineinfile: >

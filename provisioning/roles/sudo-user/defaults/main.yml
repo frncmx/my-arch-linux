@@ -1,5 +1,6 @@
 ---
 
 create_home: yes
-is_system_user: no
 default_shell: /bin/bash
+secondary_groups: null
+is_system_user: no
