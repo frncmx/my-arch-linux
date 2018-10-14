@@ -18,15 +18,16 @@
   - bashrc
   - profile
 
-- name: Seed /etc/profile.d
-  copy: >
-    src={{ item }}
-    dest=/etc/profile.d/{{ item }}
-    owner=root
-    group=root
-    mode=0644
-  with_items:
-  - bash_history.sh
+# TODO: review bash_history; peco installation? do we still need the Arch Linux hack?
+#- name: Seed /etc/profile.d
+#  copy: >
+#    src={{ item }}
+#    dest=/etc/profile.d/{{ item }}
+#    owner=root
+#    group=root
+#    mode=0644
+#  with_items:
+#  - bash_history.sh
 
 - name: Insall Bash completion
   pacman: >
