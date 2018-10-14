@@ -1,8 +1,6 @@
 ---
 
-# I can never decide when this is sourced. The answer is for login shells.
-# Oh, wait... we could use .bash_login, then everything is clear.
-- name: Delete confusing .bash_profile
+- name: Delete .bash_profile (RVM install creates/uses .profile; Ubuntu style)
   file: >
     dest=/etc/skel/.bash_profile
     state=absent
@@ -15,10 +13,10 @@
     group=root
     mode=0644
   with_items:
-  - bashrc
   - bash_aliases
-  - bash_login
   - bash_logout
+  - bashrc
+  - profile
 
 - name: Seed /etc/profile.d
   copy: >
