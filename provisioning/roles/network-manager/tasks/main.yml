@@ -1,13 +1,13 @@
 ---
 
 - name: Install Network Manager
-  pacman: >
-    name=networkmanager
-    state=present
-    update_cache=yes
+  pacman:
+    name: [ 'networkmanager', 'network-manager-applet' ]
+    state: present
+    update_cache: yes
 
 - name: Enable and start Network Manager service
-  systemd: >
-    name=NetworkManager
-    enabled=yes
-    state=started
+  systemd:
+    name: NetworkManager
+    enabled: yes
+    state: started

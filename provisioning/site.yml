@@ -8,9 +8,9 @@
 
   roles:
   - base
-  - network-manager
   - energy-saving
   - desktop-i3
   - google-chrome
   - docker
   - { role: sudo-user, new_user: "{{ target_user }}", secondary_groups: docker }
+  - network-manager
