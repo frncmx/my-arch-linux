@@ -26,3 +26,9 @@ alias t='tree'
 alias g='grep -sIrEn'
 alias qf='find . -name'
 alias qfi='find . -iname'
+
+### Git ###
+alias b='git branch'
+alias c='git commit'
+alias d='git diff'
+alias s='git status'
