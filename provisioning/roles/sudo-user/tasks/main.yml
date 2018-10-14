@@ -8,6 +8,12 @@
     shell={{ default_shell }}
     groups={{ secondary_groups }}
 
+- name: Install sudo package
+  pacman: >
+    name=sudo
+    state=present
+    update_cache=yes
+
 - name: Allow passwordless sudo for '{{ new_user }}' user
   lineinfile: >
     dest=/etc/sudoers
