@@ -32,3 +32,5 @@ alias b='git branch'
 alias c='git commit'
 alias d='git diff'
 alias s='git status'
+
+alias trim="sed -i 's/[ \t]*$//'"
