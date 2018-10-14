@@ -1,27 +1,30 @@
 ---
 
 - name: Install TLP energy-saving tools
-  pacman: >
-    name={{ item }}
-    state=present
-    update_cache=yes
+  pacman:
+    name: [
+      'tlp',
+      'ethtool', # Disable Wake On Lan
+      'lsb-release', # Display LSB release version in tlp-stat
+      'smartmontools',  # Display S.M.A.R.T. data in tlp-stat
+    ]
+    state: present
+    update_cache: yes
+
+- name: Disable and mask systemd-rfkill to avoid conflicts with TLP
+  systemd:
+    name: "{{ item }}"
+    enabled: no
+    state: stopped
+    masked: yes
   with_items:
-  - tlp
-  - ethtool # Disable Wake On Lan
-  - lsb-release # Display LSB release version in tlp-stat
-  - smartmontools # Display S.M.A.R.T. data in tlp-stat
+  - systemd-rfkill.service
 
 - name: Enable TLP services
-  systemd: >
-    name={{ item }}
-    enabled=yes
-    state=started
+  systemd:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
   with_items:
   - tlp
   - tlp-sleep
-
-- name: Disable systemd-rfkill to avoid TLP conflicts
-  systemd: >
-    name=systemd-rfkill
-    enabled=no
-    state=stopped

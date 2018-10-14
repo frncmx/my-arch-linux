@@ -1,16 +1,13 @@
 ---
 
 - name: Install Docker tools
-  pacman: >
-    name={{ item }}
-    state=present
-    update_cache=yes
-  with_items:
-  - docker
-  - docker-compose
+  pacman:
+    name: [ 'docker', 'docker-compose' ]
+    state: present
+    update_cache: yes
 
 - name: Enable and start Docker daemon
-  systemd: >
-    name=docker
-    enabled=yes
-    state=started
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
