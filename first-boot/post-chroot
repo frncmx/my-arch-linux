@@ -61,9 +61,10 @@ initrd /initramfs-linux.img
 options root=PARTUUID=${PARTUUID} rw
 EOF
 
+pacman -Sy --noconfirm ansible git # so that I can provision the machine
 
 # Make sure wifi-menu command can function properly after reboot, so that I can connect to WiFi easily.
-pacman -Sy \
+pacman -Sy --noconfirm \
   dialog \
   wpa_supplicant
 
