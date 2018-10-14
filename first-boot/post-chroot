@@ -61,7 +61,4 @@ initrd /initramfs-linux.img
 options root=PARTUUID=${PARTUUID} rw
 EOF
 
-### END ###
-
-echo "Changing root password..."
-passwd
+echo "DO NOT forget to set the root password!!!"
