@@ -1,0 +1,3 @@
+---
+dependencies:
+- { role: sudo-user, new_user: yay, is_system_user: yes, create_home: no, default_shell: /bin/false }

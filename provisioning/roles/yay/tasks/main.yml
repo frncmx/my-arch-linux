@@ -1,0 +1,41 @@
+---
+
+- name: Install AUR build dependencies
+  pacman:
+    name: [ 'base-devel', 'git' ]
+    state: present
+    update_cache: yes
+
+- name: Check that Yay exists
+  stat:
+    path: /usr/bin/yay
+  register: yay
+
+- name: Install Yay if not yey available
+  block:
+    - name: Create temporary directory for downloading Yay
+      tempfile:
+        state: directory
+        suffix: yay
+      register: yay_download_dir
+
+    - name: Download latest Yay release
+      unarchive:
+        src: "https://github.com/Jguer/yay/releases/download/v8.1157.0/yay_{{ yay_version }}_x86_64.tar.gz"
+        dest: "{{ yay_download_dir.path }}"
+        remote_src: yes
+
+    - name: Copy Yay's executable to /usr/bin
+      copy:
+        src: "{{ yay_download_dir.path }}/yay_{{ yay_version }}_x86_64/yay"
+        dest: "/usr/bin/"
+        owner: "root"
+        mode: 0755
+
+    - name: Setup Yay's Bash completion
+      copy:
+        src: "{{ yay_download_dir.path }}/yay_{{ yay_version }}_x86_64/bash"
+        dest: /usr/share/bash-completion/completions/yay
+        owner: "root"
+        mode: 0755
+  when: yay.stat.exists == False
