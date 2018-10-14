@@ -23,9 +23,9 @@
     update_cache: yes
 
 
-- name: Install clipit and i3-dmenu
+- name: Install clipit a clipboard for X
   command: >
-    yay -Sy --noconfirm clipit i3-dmenu-desktop
+    yay -Sy --noconfirm clipit
     creates=/usr/bin/clipit
   become_user: yay
 
