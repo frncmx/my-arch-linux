@@ -40,6 +40,14 @@
     state: present
     update_cache: yes
 
+- name: Add systemd service unit to lock on sleep (have to enable per user manually)
+  copy:
+    src: 'i3lock-sleep@.service'
+    dest: '/etc/systemd/system/i3lock-sleep@.service'
+    owner: root
+    group: root
+    mode: 0644
+
 
 - name: Create i3 config directory in /etc/skel
   file:
