@@ -17,3 +17,18 @@
     ]
     state: present
     update_cache: yes
+
+
+- name: Insall some fonts
+  pacman:
+    name: [
+      'adobe-source-code-pro-fonts',
+      'adobe-source-sans-pro-fonts',
+      'adobe-source-serif-pro-fonts',
+      'noto-fonts',
+      'noto-fonts-cjk',
+      'noto-fonts-emoji',
+      'noto-fonts-extra',
+    ]
+    state: present
+    update_cache: yes
