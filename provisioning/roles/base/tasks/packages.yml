@@ -32,3 +32,9 @@
     ]
     state: present
     update_cache: yes
+
+- name: Install Intel Video
+  command: >
+    yay -Sy --noconfirm xf86-video-intel
+    creates=/usr/bin/intel-virtual-output
+  become_user: yay
