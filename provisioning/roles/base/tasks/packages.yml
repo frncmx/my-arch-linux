@@ -4,15 +4,18 @@
   pacman:
     name: [
       'axel',
+      'exfat-utils',
       'gvim',
       'htop',
       'jdk7-openjdk',
       'jdk8-openjdk',
       'mc',
       'mlocate',
+      'openssh',
       'rsync',
       'smplayer',
       'thunar',
+      'tree',
       'wget',
     ]
     state: present
