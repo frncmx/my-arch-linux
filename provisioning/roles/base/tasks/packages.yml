@@ -32,6 +32,7 @@
       'noto-fonts-cjk',
       'noto-fonts-emoji',
       'noto-fonts-extra',
+      'ttf-dejavu',
     ]
     state: present
     update_cache: yes
