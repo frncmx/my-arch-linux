@@ -1,6 +1,6 @@
 ---
 
-- name: Insall my usual packages
+- name: Insall Basic Utility Packages
   pacman:
     name: [
       'axel',

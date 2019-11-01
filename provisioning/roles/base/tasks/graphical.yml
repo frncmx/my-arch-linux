@@ -1,18 +1,25 @@
 ---
 
-- name: Insall some packages
+- name: Insall Intel Video driver
   pacman:
     name: [
-      'chromium',
-      'firefox',
-      'smplayer',
       'xf86-video-intel',
     ]
     state: present
     update_cache: yes
 
 
-- name: Insall file viewer
+- name: Insall Web Browsers
+  pacman:
+    name: [
+      'chromium',
+      'firefox',
+    ]
+    state: present
+    update_cache: yes
+
+
+- name: Insall Thunar File Viewer
   pacman:
     name: [
       'thunar',
@@ -25,7 +32,7 @@
     update_cache: yes
 
 
-- name: Insall some fonts
+- name: Insall Basic Fonts
   pacman:
     name: [
       'adobe-source-code-pro-fonts',
@@ -40,3 +47,12 @@
     state: present
     update_cache: yes
 
+
+- name: Insall Media Player and Redshift
+  pacman:
+    name: [
+      'redshift',    # Adjusts color temperature for the night
+      'smplayer',
+    ]
+    state: present
+    update_cache: yes
