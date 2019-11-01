@@ -55,5 +55,5 @@ mount ${root_device}${part_ids[3]} /mnt/home
 
 ### Start installation ###
 
-pacstrap /mnt base
+pacstrap /mnt base linux linux-firmware
 genfstab -U /mnt >> /mnt/etc/fstab

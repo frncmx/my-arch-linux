@@ -1,6 +1,6 @@
 ---
 
-  # Note: standard vim does not able to access X clipboard.
+# Note: standard vim cannot access X clipboard.
 - name: Install Graphical Vim (for X clipboard access)
   pacman: >
     name=gvim
