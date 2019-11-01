@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO: What should be moved to Ansible?
-
 set -x
 set -euo pipefail
 

@@ -1,14 +1,16 @@
 #!/usr/bin/env bash
+#
+# !!! DANGER !!!
+# If you run this script it will completely erase your data!
+# Make sure your understand this script throughly before running it.
 
 set -x
 set -euo pipefail
 
-# TODO: Ask if you really want to run this script
-# which will destroy every data on /dev/sda
 
-# I know what I'm doing. I might destroy all of my data. (!)
+# I know what I'm doing. I'm OK with destroying all my data. (!)
 # Note: EXPERIMENTAL script
-: "${I_KNOW?'Do you know what you do?'}"
+: "${I_KNOW?'Do you know what you do? (destroying all your data...)'}"
 
 # Sanity: Check network connection.
 ping -c3 archlinux.org
@@ -22,14 +24,12 @@ root_device='/dev/nvme0n1'
 # 3 - home
 part_ids=('p1' 'p2' 'p3' 'p4')
 
-### DANGER - data loss here ###
-# TODO: How could partitioning be more flexible?
-# - What if I would like to put this in Packer and run on a VM?
-# - Use % and max_size like in (RedHat) kickstart (?)
-
-# Toshiba SDD
-# Size 477GiB
-# Note: To see the device it needs to be set in <> mode in the BIOS. (!)
+# Samsung SSD
+# Size 1 TB
+# Note: I'll only use 50% of the drive and I'll leave 50% if I want to create
+# more partitions, e.g., encrypted work drive.
+parted_end_of_home="487937MiB" # partition home to be ~300 GB
+# parted_end_of_home="-1" # partition home till the end of the drive (max home)
 parted "${root_device}" --script -- \
   mklabel gpt \
   mkpart primary fat32 1MiB 513MiB \
@@ -39,7 +39,7 @@ parted "${root_device}" --script -- \
   name 2 swap \
   mkpart primary 20993MiB 174593MiB \
   name 3 root  \
-  mkpart primary 174593MiB -1 \
+  mkpart primary 174593MiB ${parted_end_of_home} \
   name 4 home
 
 mkfs.fat ${root_device}${part_ids[0]}
@@ -57,4 +57,3 @@ mount ${root_device}${part_ids[3]} /mnt/home
 
 pacstrap /mnt base
 genfstab -U /mnt >> /mnt/etc/fstab
-
