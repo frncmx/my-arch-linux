@@ -10,6 +10,5 @@
   - base
   - energy-saving
   - desktop-i3
-  - docker
   - { role: sudo-user, new_user: "{{ target_user }}", secondary_groups: docker }
   - network-manager
