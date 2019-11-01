@@ -14,6 +14,6 @@ Vagrant.configure("2") do |config|
 
     # Add the following line to vagrant user's history... I usally
     # forget how to run a playbook.
-    echo "ansible-playbook provisioning/site.yml" > ~/.bash_history
+    echo "(cd /vagrant && sudo ansible-playbook provisioning/site.yml)" >> ~/.bash_history
   SHELL
 end
