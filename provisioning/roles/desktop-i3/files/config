@@ -17,7 +17,7 @@ font pango:monospace 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec GDK_SCALE=2 terminator
+bindsym $mod+Return exec terminator
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -135,13 +135,13 @@ bindsym $mod+r mode "resize"
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
-  status_command py3status -c ~/.i3/py3status.conf
-  # font pango:monospace 12
+  status_command GDK_SCALE=2 py3status -c ~/.i3/py3status.conf
+  font pango:monospace 12
 }
 
 # Screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5
 
 # Volume control
 bindsym XF86AudioMute exec amixer -q set Master toggle
@@ -154,4 +154,4 @@ bindsym $mod+Ctrl+l exec i3lock -d --color 000000
 #bindsym $mod+p exec ~/.i3/monitor/toggle
 bindsym XF86Sleep exec systemctl suspend
 
-bindsym Print exec GDK_SCALE=2 gnome-screenshot -i
+bindsym Print exec gnome-screenshot -i
