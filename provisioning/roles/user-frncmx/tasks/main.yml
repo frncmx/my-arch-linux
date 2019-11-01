@@ -1,0 +1,17 @@
+---
+
+- name: Create {{ user_name }} user with sudo rights
+  include_role:
+    name: sudo-user
+  vars:
+    new_user: "{{ user_name }}"
+
+- name: Set {{ user_name }} user's desktop to i3
+  include_role:
+    name: desktop-i3
+  vars:
+    user: "{{ user_name }}"
+
+- include_tasks: install_docker.yml
+- include_tasks: install_virtualbox.yml
+- include_tasks: configure_bash.yml

@@ -4,6 +4,7 @@
   user: >
     name={{ new_user }}
     createhome={{ create_home }}
+    skeleton={{ skeleton_dir }}
     system={{ is_system_user }}
     shell={{ default_shell }}
     groups={{ secondary_groups }}

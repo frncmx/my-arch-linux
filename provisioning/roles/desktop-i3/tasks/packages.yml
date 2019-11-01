@@ -1,0 +1,40 @@
+---
+
+- name: Install the X Display Server
+  pacman:
+    name: [
+      'xorg',
+      'xorg-xinit' # .xinitrc, startx
+    ]
+    state: present
+    update_cache: yes
+
+- name: Install i3
+  pacman:
+    name: [
+      'i3lock',
+      'i3-wm',
+
+    ]
+    state: present
+    update_cache: yes
+
+- name: Install Desktop Utils
+  pacman:
+    name: [
+      'alsa-utils',  # Contains amixer for sound shortcuts (.i3/config)
+      'dmenu',       # Mod + d => select app to lunch
+      'gnome-screenshot',
+      'i3status', # py3status needs it
+      'py3status',
+      'terminator',
+    ]
+    state: present
+    update_cache: yes
+
+
+- name: Install clipit clipboard
+  command: >
+    yay -Sy --noconfirm clipit
+    creates=/usr/bin/clipit
+  become_user: yay

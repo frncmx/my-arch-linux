@@ -1,0 +1,15 @@
+---
+
+# Note: I prefer virtualbox-host-dkms over virtualbox-host-modules-arch.
+# It takes some time to compile, but also works with linux-lts or after a
+# downgrade of linux.
+
+- name: Install Virtualbox
+  pacman:
+    name: [
+      "virtualbox",
+      "virtualbox-guest-iso",
+      "virtualbox-host-dkms",
+    ]
+    state: present
+    update_cache: yes

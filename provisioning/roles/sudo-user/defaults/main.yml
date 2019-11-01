@@ -1,6 +1,7 @@
 ---
 
-create_home: yes
 default_shell: /bin/bash
+create_home: yes
+skeleton_dir: /dev/null
 secondary_groups: null
 is_system_user: no

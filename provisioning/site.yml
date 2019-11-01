@@ -9,6 +9,5 @@
   roles:
   - base
   - energy-saving
-  - desktop-i3
-  - { role: sudo-user, new_user: "{{ target_user }}", secondary_groups: docker }
-  - network-manager
+  - user-frncmx
+  - network-manager # leave it as last; NM kills network
