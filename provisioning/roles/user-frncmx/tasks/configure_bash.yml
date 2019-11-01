@@ -1,7 +1,7 @@
 ---
 
 
-- name: Insall Bash completion
+- name: Install Bash completion
   pacman: >
     name=bash-completion
     state=present

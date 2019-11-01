@@ -1,6 +1,6 @@
 ---
 
-- name: Insall Intel Video driver
+- name: Install Intel Video driver
   pacman:
     name: [
       'xf86-video-intel',
@@ -9,7 +9,7 @@
     update_cache: yes
 
 
-- name: Insall Web Browsers
+- name: Install Web Browsers
   pacman:
     name: [
       'chromium',
@@ -19,7 +19,7 @@
     update_cache: yes
 
 
-- name: Insall Thunar File Viewer
+- name: Install Thunar File Viewer
   pacman:
     name: [
       'thunar',
@@ -32,7 +32,7 @@
     update_cache: yes
 
 
-- name: Insall Basic Fonts
+- name: Install Basic Fonts
   pacman:
     name: [
       'adobe-source-code-pro-fonts',
@@ -48,7 +48,7 @@
     update_cache: yes
 
 
-- name: Insall Media Player and Redshift
+- name: Install Media Player and Redshift
   pacman:
     name: [
       'redshift',    # Adjusts color temperature for the night

@@ -1,6 +1,6 @@
 ---
 
-- name: Insall Basic Utility Packages
+- name: Install Basic Utility Packages
   pacman:
     name: [
       'axel',
