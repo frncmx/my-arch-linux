@@ -1,22 +1,12 @@
 ---
 
-- name: Insall my usual packages
+- name: Insall some packages
   pacman:
     name: [
-      'axel',
-      'exfat-utils',
-      'gvim',
-      'htop',
-      'jdk7-openjdk',
-      'jdk8-openjdk',
-      'mlocate',
-      'openssh',
-      'rsync',
+      'chromium',
+      'firefox',
       'smplayer',
-      'tree',
-      'unzip',
-      'wget',
-      'zip',
+      'xf86-video-intel',
     ]
     state: present
     update_cache: yes
@@ -50,8 +40,3 @@
     state: present
     update_cache: yes
 
-- name: Install Intel Video
-  command: >
-    yay -Sy --noconfirm xf86-video-intel
-    creates=/usr/bin/intel-virtual-output
-  become_user: yay

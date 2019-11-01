@@ -1,0 +1,22 @@
+---
+
+- name: Insall my usual packages
+  pacman:
+    name: [
+      'axel',
+      'dmidecode',
+      'exfat-utils',
+      'gvim', # graphical vim so it can copy to XServer's clipboard
+      'htop',
+      'jdk7-openjdk',
+      'jdk8-openjdk',
+      'mlocate',
+      'openssh',
+      'rsync',
+      'tree',
+      'unzip',
+      'wget',
+      'zip',
+    ]
+    state: present
+    update_cache: yes

@@ -1,9 +1,9 @@
 ---
 
-- include: packages.yml
+- include: utils.yml
   tags:
-    - packages
+    - utils
 
-- include: bash.yml
+- include: graphical.yml
   tags:
-    - bash
+    - graphical
