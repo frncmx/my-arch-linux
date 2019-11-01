@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
    end
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    sudo pacman --noconfirm -Syu
     sudo pacman --noconfirm -Sy gvim ansible
 
     # Add the following line to vagrant user's history... I usally
