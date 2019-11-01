@@ -9,14 +9,27 @@
       'htop',
       'jdk7-openjdk',
       'jdk8-openjdk',
-      'mc',
       'mlocate',
       'openssh',
       'rsync',
       'smplayer',
-      'thunar',
       'tree',
+      'unzip',
       'wget',
+      'zip',
+    ]
+    state: present
+    update_cache: yes
+
+
+- name: Insall file viewer
+  pacman:
+    name: [
+      'thunar',
+
+      'tumbler', # for thumbnails
+      'ffmpegthumbnailer', # for video thumbnails
+      'poppler-glib', # for PDF thumbnails
     ]
     state: present
     update_cache: yes
