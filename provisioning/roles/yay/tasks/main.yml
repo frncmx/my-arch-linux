@@ -11,7 +11,7 @@
     path: /usr/bin/yay
   register: yay
 
-- name: Install Yay if not yey available
+- name: Install Yay if not yet available
   block:
     - name: Create temporary directory for downloading Yay
       tempfile:
@@ -19,9 +19,9 @@
         suffix: yay
       register: yay_download_dir
 
-    - name: Download latest Yay release
+    - name: Download given Yay release
       unarchive:
-        src: "https://github.com/Jguer/yay/releases/download/v8.1157.0/yay_{{ yay_version }}_x86_64.tar.gz"
+        src: "https://github.com/Jguer/yay/releases/download/v{{ yay_version }}/yay_{{ yay_version }}_x86_64.tar.gz"
         dest: "{{ yay_download_dir.path }}"
         remote_src: yes
 
