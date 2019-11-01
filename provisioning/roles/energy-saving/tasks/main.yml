@@ -23,11 +23,15 @@
   - systemd-rfkill.socket
 
 
-- name: Enable TLP services
+- name: Enable and start TLP service
   systemd:
-    name: "{{ item }}"
+    name: tlp
     enabled: yes
     state: started
-  with_items:
-  - tlp
-  - tlp-sleep
+
+
+- name: Enable TLP sleep
+  systemd:
+    name: tlp-sleep
+    enabled: yes
+
