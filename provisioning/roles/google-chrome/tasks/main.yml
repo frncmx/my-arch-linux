@@ -1,7 +1,0 @@
----
-
-- name: Install Google Chrome
-  command: >
-    yay -Sy --noconfirm google-chrome
-    creates=/usr/bin/google-chrome-stable
-  become_user: yay
