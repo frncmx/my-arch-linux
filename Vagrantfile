@@ -2,12 +2,12 @@
 # vi: set ft=ruby :
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ogarcia/archlinux-x64"
+  config.vm.box = "archlinux/archlinux"
 
-   config.vm.provider "virtualbox" do |vb|
-     # vb.gui = true
-     vb.memory = "1024"
-   end
+  config.vm.provider "virtualbox" do |vb|
+    # vb.gui = true
+    vb.memory = "1024"
+  end
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo pacman --noconfirm -Syu
