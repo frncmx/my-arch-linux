@@ -11,7 +11,7 @@ Vagrant.configure("2") do |config|
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
     sudo pacman --noconfirm -Syu
-    sudo pacman --noconfirm -Sy gvim ansible
+    sudo pacman --noconfirm -Sy gvim ansible --needed
 
     # Add the following line to vagrant user's history... I usally
     # forget how to run a playbook.
