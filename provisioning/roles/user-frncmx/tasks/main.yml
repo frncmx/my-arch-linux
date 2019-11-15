@@ -12,6 +12,6 @@
   vars:
     user: "{{ user_name }}"
 
-- include_tasks: install_docker.yml
-- include_tasks: install_virtualbox.yml
-- include_tasks: configure_bash.yml
+- include_tasks: bash.yml
+- include_tasks: docker.yml
+- include_tasks: virtualbox.yml

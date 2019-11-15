@@ -7,9 +7,17 @@
 - name: Install Virtualbox
   pacman:
     name: [
+      "linux-headers", # to be able to compile kernel modules
       "virtualbox",
       "virtualbox-guest-iso",
       "virtualbox-host-dkms",
     ]
     state: present
     update_cache: yes
+
+
+- include_role:
+    name: add-user-to-group
+  vars:
+    user: "{{ user_name }}"
+    group: "vboxusers"

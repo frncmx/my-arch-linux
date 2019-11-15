@@ -1,0 +1,22 @@
+---
+
+- name: Install Bash completion
+  pacman:
+    name: bash-completion
+    state: present
+    update_cache: yes
+
+
+- name: Copy Bash dotfiles to {{ user }}'s home
+  copy:
+    force: no
+    src: "bash/{{ item }}"
+    dest: "/home/{{ user_name }}/.{{ item }}"
+    owner: "{{ user_name }}"
+    group: "{{ user_name }}"
+    mode: 0644
+  with_items:
+  - bash_aliases
+  - bash_logout
+  - bashrc
+  - profile

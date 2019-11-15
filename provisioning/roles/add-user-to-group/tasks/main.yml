@@ -1,0 +1,13 @@
+---
+# Note: user module would not fail if user does not exists, but create a new user
+- name: Test if '{{ user }}' user exists, fail otherwise
+  getent:
+    database: passwd
+    key: "{{ user }}"
+
+
+- name: Add {{ user }} to {{ group }}
+  user:
+    name: "{{ user }}"
+    groups: "{{ group }}"
+    append: yes

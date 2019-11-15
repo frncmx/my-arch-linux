@@ -1,0 +1,19 @@
+---
+
+- name: Install Docker
+  pacman:
+    name: 'docker'
+    state: present
+    update_cache: yes
+
+- name: Enable and start Docker daemon
+  systemd:
+    name: docker
+    enabled: yes
+    state: started
+
+- include_role:
+    name: add-user-to-group
+  vars:
+    user: "{{ user_name }}"
+    group: "docker"
