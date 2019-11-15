@@ -2,12 +2,13 @@
 
 - name: Add systemd service unit to lock on sleep
   copy:
+    force: false
     src: 'i3lock-sleep@.service'
     dest: '/etc/systemd/system/i3lock-sleep@.service'
-    force: false
     owner: root
     group: root
     mode: 0644
+
 
 - name: Enable i3lock on sleep for {{ user }}
   systemd:
@@ -15,23 +16,29 @@
     enabled: yes
 
 
-################
-# !!!WARNING!!! from here we assume user's home is /home/{{ user }}
-###############
+- getent:
+    database: passwd
+    key: "{{ user }}"
+
+
+- set_fact:
+    i3_user_home: "{{getent_passwd[user][4]}}"
 
 
 - name: Create i3 config directory for {{ user }}
   file:
-    path: "/home/{{ user }}/.i3"
+    path: "{{ i3_user_home }}/.i3"
     state: directory
 
 
 - name: Create i3 config files for {{ user }}
   copy:
-    src: "{{ item.name }}"
-    dest: "/home/{{ user }}/.i3/{{ item.name }}"
-    mode: "{{ item.mode }}"
     force: false
+    src: "{{ item.name }}"
+    dest: "{{ i3_user_home }}/.i3/{{ item.name }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: "{{ item.mode }}"
   with_items:
     - { name: 'config', mode: '0644' }
     - { name: 'py3status.conf', mode: '0644' }
@@ -39,10 +46,9 @@
 
 - name: Put .xinitrc into {{ user }}'s home
   copy:
-    src: xinitrc
-    dest: "/home/{{ user }}/.xinitrc"
-    mode: 0644
     force: false
-
-
-
+    src: xinitrc
+    dest: "{{ i3_user_home }}/.xinitrc"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+    mode: 0644
