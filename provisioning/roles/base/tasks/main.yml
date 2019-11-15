@@ -2,9 +2,9 @@
 
 - include: utils.yml
   tags:
-    - utils
+    - base-utils
 
 
 - include: graphical.yml
   tags:
-    - graphical
+    - base-graphical

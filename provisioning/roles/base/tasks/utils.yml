@@ -20,3 +20,13 @@
     ]
     state: present
     update_cache: yes
+
+- name: Install Diagnostic Tools
+  pacman:
+    name: [
+      'intel-gpu-tools', # for intel_gpu_top
+      'powertop', # shows CPU energy consumption and avg. freq
+      's-tui', # stress testers, show CPU freq and temp
+    ]
+    state: present
+    update_cache: yes

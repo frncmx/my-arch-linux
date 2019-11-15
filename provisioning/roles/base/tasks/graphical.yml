@@ -23,7 +23,6 @@
   pacman:
     name: [
       'thunar',
-
       'tumbler', # for thumbnails
       'ffmpegthumbnailer', # for video thumbnails
       'poppler-glib', # for PDF thumbnails
