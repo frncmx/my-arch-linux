@@ -17,3 +17,12 @@ So, what is the solution? Automate and store my configurations here.
 
 **Important:** 1st this will be more like a collection of manual notes. But,
 hopefully, that will evolve when I have time.
+
+## Testing with Vagrant
+
+1. Install `vagrant`
+3. `vagrant up`
+3. `vagrant reload`
+4. `vagrant snapshot save default clean-provisioned`
+4. `vagrant ssh`
+5. `history` <= See how to run Ansible.
