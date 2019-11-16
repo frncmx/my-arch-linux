@@ -1,0 +1,24 @@
+---
+# My Lenovo Carbon X1 (6th Gen.) fails to enter suspend when a USB-C
+# cable is present with or without any device attached to it. The following
+# systemd unit solves that problem.
+#
+# Note: this also disables flashing Ubikey (non AlwayOn USB) and
+# prevents a Bluetooth mouse from waking up the computer.
+
+
+- name: Add systemd service unit to fix suspend issues on sleep
+  copy:
+    src: 'fixsuspend.service'
+    dest: '/etc/systemd/system/fixsuspend.service'
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: Enable fixsuspend service
+  systemd:
+    name: "fixsuspend.service"
+    enabled: yes
+    state: started
+    daemon_reload: yes
