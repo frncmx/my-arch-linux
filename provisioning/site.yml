@@ -2,10 +2,6 @@
 
 - hosts: all
   become: yes
-
-  vars:
-  - target_user: frncmx
-
   roles:
   - base
   - energy-saving
