@@ -140,8 +140,8 @@ bar {
 }
 
 # Screen brightness
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5
+bindsym XF86MonBrightnessUp exec xbacklight -inc 3
+bindsym XF86MonBrightnessDown exec xbacklight -dec 2
 
 # Volume control
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
