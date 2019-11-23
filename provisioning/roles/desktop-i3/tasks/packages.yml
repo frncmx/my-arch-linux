@@ -9,6 +9,7 @@
     state: present
     update_cache: yes
 
+
 - name: Install i3
   pacman:
     name: [
@@ -19,10 +20,21 @@
     state: present
     update_cache: yes
 
+
+- name: Install Pulseaudio
+  pacman:
+    name: [
+      'pulseaudio',
+      'pulseaudio-alsa',
+      'lib32-alsa-plugins',
+      'lib32-libpulse',
+      'pavucontrol', # volume control w/ volume meter
+    ]
+
+
 - name: Install Desktop Utils
   pacman:
     name: [
-      'alsa-utils',  # Contains amixer for sound shortcuts (.i3/config)
       'dmenu',       # Mod + d => select app to lunch
       'gnome-screenshot',
       'i3status', # py3status needs it
