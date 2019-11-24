@@ -1,0 +1,10 @@
+---
+
+- name: Set US,HU layouts to be switched when both shifts pressed
+  copy:
+    force: false
+    src: xorg.conf.d/00-keyboard.conf
+    dest: /etc/X11/xorg.conf.d/00-keyboard.conf
+    owner: root
+    group: root
+    mode: '0644'

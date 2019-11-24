@@ -29,12 +29,14 @@
   file:
     path: "{{ i3_user_home }}/.i3"
     state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
 
 
 - name: Create i3 config files for {{ user }}
   copy:
     force: false
-    src: "{{ item.name }}"
+    src: "i3/{{ item.name }}"
     dest: "{{ i3_user_home }}/.i3/{{ item.name }}"
     owner: "{{ user }}"
     group: "{{ user }}"
