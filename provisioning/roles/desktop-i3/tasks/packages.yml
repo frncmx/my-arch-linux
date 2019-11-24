@@ -26,8 +26,6 @@
     name: [
       'pulseaudio',
       'pulseaudio-alsa',
-      'lib32-alsa-plugins',
-      'lib32-libpulse',
       'pavucontrol', # volume control w/ volume meter
     ]
 
