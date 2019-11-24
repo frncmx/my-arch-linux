@@ -5,8 +5,11 @@ Vagrant.configure("2") do |config|
   config.vm.box = "archlinux/archlinux"
 
   config.vm.provider "virtualbox" do |vb|
-    # vb.gui = true
-    vb.memory = "1024"
+      # vb.gui = true
+      vb.memory = "1024"
+      # Set screen virtual memory to 16MB so that i3
+      # can actually start on login when GUI is on.
+      vb.customize ["modifyvm", :id, "--vram", "16"]
   end
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
