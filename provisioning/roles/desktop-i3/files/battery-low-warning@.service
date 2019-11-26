@@ -1,0 +1,10 @@
+[Unit]
+Description=Battery low warning service for i3
+
+[Service]
+User=%I
+Type=simple
+ExecStart=/usr/bin/battery-low-checker
+
+[Install]
+WantedBy=graphical.target

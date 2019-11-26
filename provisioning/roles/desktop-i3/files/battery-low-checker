@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Use sensible default if DISPLAY not available in env; useful for systemd.
+: "${DISPLAY:=:0}"
+
+BLW_LOW_THRESHOLD=20 # unit: percentage
+BLW_CHECK_INTERVAL=300 # unit: seconds
+
+main() {
+  while true; do
+    if is_display_unavailable ; then
+      # Possibly the user is not logged in yet. Let't not fail the unit.
+      log_display_unavailable
+    elif is_under_threshold && is_discharging ; then
+      show_battery_low_warning
+    fi
+   
+    sleep "${BLW_CHECK_INTERVAL}"
+  done
+}
+
+is_display_unavailable() {
+  if xdpyinfo -display "${DISPLAY}" > /dev/null ; then
+    return 1 # false
+  else
+    return 0 # true
+  fi
+}
+
+log_display_unavailable() {
+  echo "Your display seems to be unavailable. Are you logged in?" >&2
+}
+
+is_under_threshold() {
+  local battery_level
+  battery_level="$(cat /sys/class/power_supply/BAT0/capacity)"
+
+  [[ "${battery_level}" -lt "${BLW_LOW_THRESHOLD}" ]]
+}
+
+is_discharging() {
+  local battery_status
+  battery_status="$(cat /sys/class/power_supply/BAT0/status)"
+  
+  [[ "${battery_status}" == 'Discharging' ]]
+}
+
+show_battery_low_warning() {
+  # Note: i3-nagbar blocks while showing the message
+  DISPLAY="${DISPLAY}" \
+  i3-nagbar \
+    --message "Your BATTERY level is low!" \
+    --type warning \
+    --font 'pango:monospace 16' \
+    > /dev/null
+}
+
+main "$@"

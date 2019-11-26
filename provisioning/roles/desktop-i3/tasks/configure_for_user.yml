@@ -1,5 +1,11 @@
 ---
 
+# Note: Due to Ansible's systemd module limitation, I don't use user scoped
+# unit files ('systemctl --user'). Rather I use system scope with style
+# '<unit-name>@<user>.service'. More specifically when become user is
+# specified Ansible doesn't login as the given user, so that
+# 'systemctl --user' would fail by not being able to connect user's dbus.
+
 - name: Add systemd service unit to lock on sleep
   copy:
     force: false
@@ -54,3 +60,27 @@
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: 0644
+
+- name: Install battery low checker script
+  copy:
+    src: 'battery-low-checker'
+    dest: '/usr/bin/battery-low-checker'
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Add systemd service unit to monitor battery level
+  copy:
+    src: 'battery-low-warning@.service'
+    dest: '/etc/systemd/system/battery-low-warning@.service'
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: Enable battery low warning service
+  systemd:
+    name: "battery-low-warning@{{ user }}"
+    enabled: yes
+    state: started
+    daemon_reload: yes
