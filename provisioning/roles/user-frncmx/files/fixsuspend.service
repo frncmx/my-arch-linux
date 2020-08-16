@@ -1,5 +1,5 @@
 [Unit]
-Description=Fixes failing suspend by disabling wakeup thourgh USB
+Description=Fixes failing suspend by disabling wakeup by USB device
 
 [Service]
 ExecStart=/bin/bash -c 'grep --silent '^XHC.*disabled' /proc/acpi/wakeup || echo XHC > /proc/acpi/wakeup'

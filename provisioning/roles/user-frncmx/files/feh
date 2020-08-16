@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+# Just a personal preference to use feh this way:
+/usr/bin/feh --fullscreen "$@"

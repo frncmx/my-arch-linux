@@ -7,4 +7,9 @@ if type nm-applet; then
   pgrep nm-applet &> /dev/null || nm-applet &> /dev/null &
 fi
 
+# Set X Background Image with Feh
+if [ -x ~/.fehbg ]; then
+  ~/.fehbg
+fi
+
 exec i3
