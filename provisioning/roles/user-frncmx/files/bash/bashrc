@@ -7,13 +7,7 @@
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Load profiles from /etc/profile.d
-if [[ -d /etc/profile.d/ ]]; then
-  for profile in /etc/profile.d/*.sh; do
-    [[ -r "${profile}" ]] && source "${profile}"
-  done
-  unset profile
-fi
+source /etc/profile
 
 if [[ -f ~/.bash_aliases ]]; then
   source ~/.bash_aliases
