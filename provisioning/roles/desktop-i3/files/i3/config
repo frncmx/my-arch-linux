@@ -156,3 +156,7 @@ bindsym $mod+Ctrl+l exec i3lock -d --color 000000
 bindsym XF86Sleep exec systemctl suspend
 
 bindsym Print exec gnome-screenshot -i
+
+# Create a floating video window (youtube,hangouts)
+bindsym $mod+y fullscreen disable; floating enable; resize set 640 480; sticky enable; move window to position 1270 590
+bindsym $mod+Shift+y fullscreen enable; floating disable; sticky disable
