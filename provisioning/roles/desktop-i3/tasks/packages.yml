@@ -34,6 +34,7 @@
   pacman:
     name: [
       'dmenu',       # Mod + d => select app to lunch
+      'clipmenu',
       'gnome-screenshot',
       'i3status', # py3status needs it
       'py3status',
