@@ -3,8 +3,8 @@
 - name: Install the X Display Server
   pacman:
     name: [
-      'xorg',
-      'xorg-xinit' # .xinitrc, startx
+        'xorg',
+        'xorg-xinit' # .xinitrc, startx
     ]
     state: present
     update_cache: yes
@@ -13,8 +13,8 @@
 - name: Install i3
   pacman:
     name: [
-      'i3lock',
-      'i3-wm',
+        'i3lock',
+        'i3-wm',
 
     ]
     state: present
@@ -24,21 +24,24 @@
 - name: Install Pulseaudio
   pacman:
     name: [
-      'pulseaudio',
-      'pulseaudio-alsa',
-      'pavucontrol', # volume control w/ volume meter
+        'pulseaudio',
+        'pulseaudio-alsa',
+        'pavucontrol', # volume control w/ volume meter
     ]
 
 
 - name: Install Desktop Utils
   pacman:
     name: [
-      'dmenu',       # Mod + d => select app to lunch
-      'clipmenu',
-      'gnome-screenshot',
-      'i3status', # py3status needs it
-      'py3status',
-      'terminator',
+        'clipmenu',
+        'dmenu',       # Mod + d => select app to lunch
+        'flameshot',
+        'i3status', # py3status needs it
+        'ibus',
+        'py3status',
+        'redshift',
+        'terminator',
+        'xss-lock',
     ]
     state: present
     update_cache: yes

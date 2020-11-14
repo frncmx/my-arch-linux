@@ -4,5 +4,3 @@
 
 - include_tasks: configure_for_user.yml
   when: user is defined
-
-- include_tasks: keyboard.yml

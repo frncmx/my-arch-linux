@@ -48,10 +48,9 @@
     update_cache: yes
 
 
-- name: Install Media Player and Redshift
+- name: Install Media Player
   pacman:
     name: [
-      'redshift',    # Adjusts color temperature for the night
       'smplayer',
     ]
     state: present

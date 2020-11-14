@@ -1,27 +1,5 @@
 ---
 
-# Note: Due to Ansible's systemd module limitation, I don't use user scoped
-# unit files ('systemctl --user'). Rather I use system scope with style
-# '<unit-name>@<user>.service'. More specifically when become user is
-# specified Ansible doesn't login as the given user, so that
-# 'systemctl --user' would fail by not being able to connect user's dbus.
-
-- name: Add systemd service unit to lock on sleep
-  copy:
-    force: false
-    src: 'i3lock-sleep@.service'
-    dest: '/etc/systemd/system/i3lock-sleep@.service'
-    owner: root
-    group: root
-    mode: 0644
-
-
-- name: Enable i3lock on sleep for {{ user }}
-  systemd:
-    name: "i3lock-sleep@{{ user }}"
-    enabled: yes
-
-
 - getent:
     database: passwd
     key: "{{ user }}"
