@@ -13,6 +13,8 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-eval $(ssh-agent -t 1h)
+# fix: gnome-keyring password prompt
+dbus-update-activation-environment --systemd \
+	 DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
 
 exec ssh-agent -t 1h i3
