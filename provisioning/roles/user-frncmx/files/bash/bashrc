@@ -16,8 +16,6 @@ fi
 export EDITOR='vim'
 export PATH="${HOME}/bin:${PATH}"
 
-eval $(ssh-agent -s) > /dev/null && ssh-add 2> /dev/null
-
 ##########################
 ### Go and My Workdir ###
 #########################
@@ -27,5 +25,3 @@ workdir="${GOPATH}/src/github.com"
 mkdir -p "${workdir}"
 alias cdw="cd ${workdir}"
 unset workdir
-
-

@@ -13,4 +13,6 @@ export GTK_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
 export QT_IM_MODULE=ibus
 
-exec i3
+eval $(ssh-agent -t 1h)
+
+exec ssh-agent -t 1h i3
